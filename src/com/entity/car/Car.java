@@ -22,17 +22,17 @@ public class Car {
     /**
      * Грузоподьемность машыны.
      */
-    private Integer carryingCar;
+    private Double carryingCar;
 
     /**
      * Обьем машыны.
      */
-    private Integer amountCar;
+    private Double amountCar;
 
     /**
      * Мошьность двигателся
      */
-    private Integer enginePower;
+    private Double enginePower;
 
     /**
      * Исправность машины.
@@ -69,19 +69,19 @@ public class Car {
         this.type = type;
     }
 
-    public Integer getCarryingCar() {
+    public Double getCarryingCar() {
         return carryingCar;
     }
 
-    public void setCarryingCar(Integer carryingCar) {
+    public void setCarryingCar(Double carryingCar) {
         this.carryingCar = carryingCar;
     }
 
-    public Integer getAmountCar() {
+    public Double getAmountCar() {
         return amountCar;
     }
 
-    public void setAmountCar(Integer amountCar) {
+    public void setAmountCar(Double amountCar) {
         this.amountCar = amountCar;
     }
 
@@ -103,11 +103,11 @@ public class Car {
 
 
 
-    public Integer getEnginePower() {
+    public Double getEnginePower() {
         return enginePower;
     }
 
-    public void setEnginePower(Integer enginePower) {
+    public void setEnginePower(Double enginePower) {
         this.enginePower = enginePower;
     }
 
@@ -115,7 +115,7 @@ public class Car {
 
     }
 
-    public Car(String namber, TYPE type, Integer carryingCar, Integer amountCar, Integer enginePower, boolean defective,
+    public Car(String namber, TYPE type, Double carryingCar, Double amountCar, Double enginePower, boolean defective,
             String comments) {
         super();
         this.namber = namber;

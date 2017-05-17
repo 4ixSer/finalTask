@@ -37,11 +37,11 @@ CREATE TABLE `summarytask4`.`car` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `namber` VARCHAR(45) NOT NULL,
   `type` INT NOT NULL,
-  `carryingCar` INT NOT NULL,
-  `amountCar` INT NOT NULL,
-  `enginePower` INT NULL,
+  `carryingCar` DOUBLE NOT NULL,
+  `amountCar` DOUBLE NOT NULL,
+  `enginePower` DOUBLE NULL,
   `defective` ENUM('true','false'),
-  `comments` TINYINT NULL,
+  `comments` MEDIUMTEXT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `namber_UNIQUE` (`namber` ASC))
 DEFAULT CHARACTER SET = utf16;
