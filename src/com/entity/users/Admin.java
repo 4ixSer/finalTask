@@ -7,5 +7,10 @@ package com.entity.users;
  *
  */
 public class Admin extends User {
+
+    @Override
+    public String toString() {
+        return "Admin ["+super.toString()+"]";
+    }
     //TODO придумать методы для его работы
 }

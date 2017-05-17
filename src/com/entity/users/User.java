@@ -1,10 +1,13 @@
 package com.entity.users;
+
+import com.entity.Entity;
+
 /**
  * Класс родитель для пользователей данного сервиса.
  * @author qny4i
  *
  */
-public class User {
+public class User extends Entity {
     /**
      * Айди юзера. Для записи его БД. Будет генериться автоматом в таблице.
      *
@@ -88,8 +91,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", login=" + login + ", password=" + password + ", name=" + name + ", email=" + email
-                + "]";
+        return "id=" + id + ", login=" + login + ", password=" + password + ", name=" + name + ", email=" + email;
     }
 
 

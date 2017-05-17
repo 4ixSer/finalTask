@@ -13,8 +13,7 @@ CREATE TABLE `summarytask4`.`user` (
   `email` VARCHAR(45) NULL,
   `role` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `login_UNIQUE` (`login` ASC))
-DEFAULT CHARACTER SET = utf16;
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC));
 
 /*Создать таблицу ролей*/
 CREATE TABLE `summarytask4`.`role` (
@@ -33,14 +32,6 @@ ADD CONSTRAINT `fk_roleName`
   ON DELETE CASCADE
   ON UPDATE CASCADE;
   
-/*Вставить роли*/
-INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('1', 'Admin');
-INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('2', 'Dispatcher');
-INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('3', 'Driver');
-
-/*Добавить админа*/
-INSERT INTO `summarytask4`.`user` (`login`, `password`, `name`, `email`, `role`) VALUES ('admin', 'root', 'admin', '', '1');
-
 /*Созадть таблицу Для машин*/
 CREATE TABLE `summarytask4`.`car` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -71,22 +62,6 @@ ADD CONSTRAINT `fk_type`
   REFERENCES `summarytask4`.`type_car` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
-  
-  /*Задать Стандартные типы машин*/
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('1', 'PLATFORM');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('2', 'VAN');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('3', 'TANK');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('4', 'SUGGESTION');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('5', 'SORTEMENT');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('6', 'BOARD');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('7', 'CONTAINER');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('8', 'GASOLINE');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('9', 'TANKER');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('10', 'TENT');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('11', 'AVTOVOSCH');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('12', 'REFRIGERATOR');
-INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('13', 'OTHERS');
 
 /*Создание таблицы для  рейса*/
 CREATE TABLE `summarytask4`.`flight` (
@@ -155,16 +130,6 @@ ADD CONSTRAINT `fk_car_car`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-
-  
-/*задание типов статусо*/
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('1', 'OPEN');
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('2', 'REJEJECTED');
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('3', 'CANCELED');
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('4', 'INPROGRESS');
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('5', 'CLOSED');
-INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('6', 'PROCESSED');
-
 /*Связь заявки с статусами и водителем*/
 ALTER TABLE `summarytask4`.`request` 
 ADD INDEX `fk_user_driver_idx` (`ownerRequest` ASC);
@@ -183,4 +148,35 @@ ADD CONSTRAINT `fk_requst_status`
   ON UPDATE CASCADE;
 
 
+/*Вставить роли*/
+INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('1', 'Admin');
+INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('2', 'Dispatcher');
+INSERT INTO `summarytask4`.`role` (`id`, `title`) VALUES ('3', 'Driver');
 
+/*Добавить админа*/
+INSERT INTO `summarytask4`.`user` (`login`, `password`, `name`, `email`, `role`) VALUES ('admin', 'root', 'admin', '', '1');
+
+  
+  /*Задать Стандартные типы машин*/
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('1', 'PLATFORM');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('2', 'VAN');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('3', 'TANK');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('4', 'SUGGESTION');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('5', 'SORTEMENT');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('6', 'BOARD');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('7', 'CONTAINER');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('8', 'GASOLINE');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('9', 'TANKER');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('10', 'TENT');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('11', 'AVTOVOSCH');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('12', 'REFRIGERATOR');
+INSERT INTO `summarytask4`.`type_car` (`id`, `type`) VALUES ('13', 'OTHERS');
+
+  
+/*задание типов статусо*/
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('1', 'OPEN');
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('2', 'REJEJECTED');
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('3', 'CANCELED');
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('4', 'INPROGRESS');
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('5', 'CLOSED');
+INSERT INTO `summarytask4`.`status` (`id`, `status_name`) VALUES ('6', 'PROCESSED');

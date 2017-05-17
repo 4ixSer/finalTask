@@ -6,5 +6,12 @@ package com.entity.users;
  *
  */
 public class Dispatcher extends User {
+
+    @Override
+    public String toString() {
+        return "Dispatcher ["+super.toString()+"]";
+    }
     //TODO реализовать методы обрашения
+
+
 }
