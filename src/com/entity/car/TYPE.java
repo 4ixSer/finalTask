@@ -1,5 +1,6 @@
 package com.entity.car;
 
+
 /**
  * “ип √рузовиков. ¬ќзможна€ у€звимость конечного продукта иза невозможности добавить другой тип
  * @author qny4i
@@ -52,6 +53,22 @@ public enum TYPE {
      */
     public Integer value() {
         return value;
+    }
+
+    /**
+     * Method for searching for a value by Int.
+     *
+     * @param i
+     *            The required String element
+     * @return
+     */
+    public static TYPE fromValue(final int i) {
+        for (TYPE c : TYPE.values()) {
+            if (c.value.equals(i)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
 }

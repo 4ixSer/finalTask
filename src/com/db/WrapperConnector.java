@@ -2,10 +2,9 @@ package com.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.MissingResourceException;
 
 import com.db.util.ConnectorDB;
+
 /**
  * Класс врапер для будушего пула соединений.
  * @author qny4ix
@@ -13,39 +12,45 @@ import com.db.util.ConnectorDB;
  */
 
 public class WrapperConnector {
+
+    private static WrapperConnector instance;
     private Connection connection;
 
-    public WrapperConnector() {
+    private WrapperConnector() {
+    }
+
+    /**
+     * Реализация синглтона. Дял получения обьекта WrapperCinnector
+     *
+     * @return
+     */
+    public static synchronized WrapperConnector getInstance() {
+        if (instance == null) {
+            instance = new WrapperConnector();
+            instance.getConnection(true);
+        }
+        return instance;
+    }
+
+    /**
+     * Метод для получения Connection.
+     *
+     * @param autoCommit парамерт авто комита
+     * @return
+     */
+    public Connection getConnection(boolean autoCommit) {
         try {
             connection = ConnectorDB.getConnections("database");
-            //TODO релизовать тут пул конекторов
-        } catch (MissingResourceException e) {
-            System.err.println("properties file is missing " + e);
+            connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
-            System.err.println("not obtained connection " + e);
+            System.err.println("SQLException: " + e.getMessage() + "SQLState: " + e.getSQLState());
         }
+        return connection;
     }
 
-    public Statement getStatement() throws SQLException {
-        if (connection != null) {
-            Statement statement = connection.createStatement();
-            if (statement != null) {
-                return statement;
-            }
-        }
-        throw new SQLException("connection or statement is null");
-    }
-
-    public void closeStatement(Statement statement) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                System.err.println("statement is null " + e);
-            }
-        }
-    }
-
+    /**
+     * Метод для закрытия конекшена с базой данных ХЗ пока куда её припихнуть
+     */
     public void closeConnection() {
         if (connection != null) {
             try {
@@ -55,5 +60,5 @@ public class WrapperConnector {
             }
         }
     }
-    // другие необходимые делегированные методы интерфейса Connection
+
 }

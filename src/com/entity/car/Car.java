@@ -1,16 +1,19 @@
 package com.entity.car;
+
+import com.entity.Entity;
+
 /**
  * Класс реализуюший описание поведение машины.
  * @author qny4ix
  *
  */
-public class Car {
+public class Car extends Entity{
     /**
      * ID машины для хранения в базе.
      */
     private Integer id;
     /**
-     * Номер машины.
+     * Номер машины. Уникален в базе данных
      */
     private String namber;
 
@@ -133,12 +136,5 @@ public class Car {
                 + ", amountCar=" + amountCar + ", enginePower=" + enginePower + ", defective=" + defective
                 + ", comments=" + comments + "]";
     }
-
-
-
-
-
-
-
 
 }
