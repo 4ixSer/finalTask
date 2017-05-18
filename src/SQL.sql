@@ -43,8 +43,7 @@ CREATE TABLE `summarytask4`.`car` (
   `defective` ENUM('true','false'),
   `comments` MEDIUMTEXT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `namber_UNIQUE` (`namber` ASC))
-DEFAULT CHARACTER SET = utf16;
+  UNIQUE INDEX `namber_UNIQUE` (`namber` ASC));
 
 /*Созадание таблицы типов машин*/
 CREATE TABLE `summarytask4`.`type_car` (
@@ -72,8 +71,7 @@ CREATE TABLE `summarytask4`.`flight` (
   `car` INT NOT NULL,
   `dispatcher` INT NOT NULL,
   `note` MEDIUMTEXT NULL,
-  PRIMARY KEY (`id`))
-DEFAULT CHARACTER SET = utf16;
+  PRIMARY KEY (`id`));
 
 /*Создание таблицы для заявок*/
 CREATE TABLE `summarytask4`.`request` (
@@ -82,21 +80,19 @@ CREATE TABLE `summarytask4`.`request` (
   `dataRequest` TIMESTAMP NOT NULL,
   `dataDeparture` TIMESTAMP NOT NULL,
   `car_type` INT NULL,
-  `carrying_car` INT NULL,
-  `amount_car` INT NULL,
-  `enginePower` INT NULL,
+  `carrying_car` DOUBLE NULL,
+  `amount_car` DOUBLE NULL,
+  `enginePower` DOUBLE NULL,
   `status` INT NULL,
   `note` MEDIUMTEXT NULL,
-  PRIMARY KEY (`id`))
-DEFAULT CHARACTER SET = utf16;
+  PRIMARY KEY (`id`));
 
 /*Создание таблицы для статусов*/
 CREATE TABLE `summarytask4`.`status` (
   `id` INT NOT NULL,
   `status_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `status_name_UNIQUE` (`status_name` ASC))
-  DEFAULT CHARACTER SET = utf16;
+  UNIQUE INDEX `status_name_UNIQUE` (`status_name` ASC));
   
 /*связь рейцса с статусом, водителем, диспечером */
 ALTER TABLE `summarytask4`.`flight` 

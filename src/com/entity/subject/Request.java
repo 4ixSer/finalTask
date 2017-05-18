@@ -1,6 +1,7 @@
 package com.entity.subject;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.entity.car.Car;
 import com.entity.users.User;
@@ -25,17 +26,17 @@ public class Request {
     /**
      * Äàòà ïîäà÷è çàÿâêè.
      */
-    private Calendar dataRequest;
+    private LocalDateTime dataRequest;
 
     /**
      * Äàòà ïğåäïîëîãàåìîãî âûåçäà.
      */
-    private Calendar dataDeparture;
+    private LocalDateTime dataDeparture;
 
     /**
      * Õàğàêòåğèñòèêè ïğåäïîëàãàåìîé ìàøûíû.
      */
-    private Car characteristicsÑak;
+    private Car characteristicsÑar;
 
     /**
      * Ñòàòóñ
@@ -56,11 +57,11 @@ public class Request {
     }
 
     public Car getCharacteristicsÑak() {
-        return characteristicsÑak;
+        return characteristicsÑar;
     }
 
-    public void setCharacteristicsÑak(Car characteristicsÑak) {
-        this.characteristicsÑak = characteristicsÑak;
+    public void setCharacteristicsÑar(Car characteristicsÑar) {
+        this.characteristicsÑar = characteristicsÑar;
     }
 
     public Integer getNamberRequest() {
@@ -79,19 +80,32 @@ public class Request {
         this.ownerRequest = ownerRequest;
     }
 
-    public Calendar getDataRequest() {
+    public LocalDateTime getDataRequest() {
         return dataRequest;
     }
+    // TODO èóè ÷åò åøå ïîìåíÿòü
+    /*
+     * LocalDateTime curDateTime = LocalDateTime.now(); LocalDateTime
+     * curDateFuche = LocalDateTime.parse("2017-05-18T10:53:15");
+     *
+     * System.out.println("Ñåé÷àñ = "+curDateTime.format(DateTimeFormatter.
+     * ofPattern("yyyy'-'MM'-'d hh:mm:ss")));
+     *
+     * System.out.println("Ïğîøëîå = "+curDateFuche.format(DateTimeFormatter.
+     * ofPattern("yyyy'-'MM'-'d hh:mm:ss")));
+     *
+     */
 
-    public void setDataRequest(Calendar dataRequest) {
+    public void setDataRequest(LocalDateTime dataRequest) {
+
         this.dataRequest = dataRequest;
     }
 
-    public Calendar getDataDeparture() {
+    public LocalDateTime getDataDeparture() {
         return dataDeparture;
     }
 
-    public void setDataDeparture(Calendar dataDeparture) {
+    public void setDataDeparture(LocalDateTime dataDeparture) {
         this.dataDeparture = dataDeparture;
     }
 
@@ -103,16 +117,41 @@ public class Request {
         this.status = status;
     }
 
-    public Request(User ownerRequest, Calendar dataRequest, Calendar dataDeparture, Car characteristicsÑak,
+    public Request(User ownerRequest, LocalDateTime dataRequest, LocalDateTime dataDeparture, Car characteristicsÑak,
             Status status, String note) {
         super();
         this.ownerRequest = ownerRequest;
         this.dataRequest = dataRequest;
         this.dataDeparture = dataDeparture;
-        this.characteristicsÑak = characteristicsÑak;
+        this.characteristicsÑar = characteristicsÑak;
         this.status = status;
         this.note = note;
     }
+
+    //TODO ïåğåïèñàòü ìåòîä äëÿ èçìåíåíèé ïàğàìåòğîâ âğåìåíè â çàâèñèìîñòè îò ÿçûêà
+     public String toStringDataRequest() {
+
+         return dataRequest.format(DateTimeFormatter.ofPattern("yyyy'-'MM'-'d hh:mm:ss"));
+     }
+
+     public String toStringDataDeparture() {
+
+         return dataDeparture.format(DateTimeFormatter.ofPattern("yyyy'-'MM'-'d hh:mm:ss"));
+     }
+
+
+     public static LocalDateTime fromValueDataRequest(String time){
+         //TODO ÏÀòåğ áóäåò ìåíÿòüñÿ â çàâèñèìîñòè îò ÿçûêà
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.n");
+         return LocalDateTime.parse(time, formatter);
+     }
+
+     public static LocalDateTime fromValueDataDeparture(String time){
+         //TODO ÏÀòåğ áóäåò ìåíÿòüñÿ â çàâèñèìîñòè îò ÿçûêà
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.n");
+         return LocalDateTime.parse(time, formatter);
+
+     }
 
     public Request() {
         super();
@@ -121,7 +160,7 @@ public class Request {
     @Override
     public String toString() {
         return "Request [namberRequest=" + namberRequest + ", ownerRequest=" + ownerRequest + ", dataRequest="
-                + dataRequest + ", dataDeparture=" + dataDeparture + ", characteristicsÑak=" + characteristicsÑak
+                + dataRequest + ", dataDeparture=" + dataDeparture + ", characteristicsÑak=" + characteristicsÑar
                 + ", status=" + status + ", note=" + note + "]";
     }
 

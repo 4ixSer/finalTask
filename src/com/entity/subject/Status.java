@@ -46,4 +46,20 @@ public enum Status {
     public Integer value() {
         return value;
     }
+
+    /**
+    * Method for searching for a value by Int.
+    *
+    * @param i
+    *            The required String element
+    * @return
+    */
+   public static Status fromValue(final int i) {
+       for (Status c : Status.values()) {
+           if (c.value.equals(i)) {
+               return c;
+           }
+       }
+       throw new IllegalArgumentException();
+   }
 }

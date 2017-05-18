@@ -10,6 +10,9 @@ import java.util.List;
 
 import com.db.util.ConnectorDB;
 import com.entity.car.Car;
+import com.entity.car.TYPE;
+import com.entity.subject.Request;
+import com.entity.subject.Status;
 import com.entity.users.Admin;
 import com.entity.users.Dispatcher;
 import com.entity.users.Driver;
@@ -27,6 +30,9 @@ public class DBManager {
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id=?";
     private static final String SQL_INSERT_CAR = "INSERT INTO car (namber, type, carryingCar, amountCar, enginePower, defective, comments) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_CAR = "DELETE FROM car WHERE id=?";
+    private static final String SQL_INSERT_REQUEST = "INSERT INTO request (ownerRequest, dataRequest, dataDeparture, car_type, carrying_car, amount_car, enginePower, status, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT_All_REQUEST = "SELECT * FROM request";
+    private static final String SQL_SELECT_REQUEST_BY_ID ="SELECT * FROM request where id=?";
 
     private static DBManager instance;
     private Connection connection;
@@ -255,6 +261,127 @@ public class DBManager {
         return car;
     }
 
+    /**
+     * Метод для создания заявк
+     */
+    public boolean createRequest(Request request) {
 
+        PreparedStatement ps = null;
+        try {
+
+            ps = connection.prepareStatement(SQL_INSERT_REQUEST);
+
+            ps.setInt(1, request.getOwnerRequest().getId());
+
+            ps.setString(2, request.toStringDataDeparture());
+            ps.setString(3, request.toStringDataRequest());
+
+           // тут мы вытягиевам предпологаемые данные для машины
+            ps.setInt(4, request.getCharacteristicsСak().getType().value());
+            ps.setDouble(5, request.getCharacteristicsСak().getCarryingCar());
+            ps.setDouble(6, request.getCharacteristicsСak().getAmountCar());
+            ps.setDouble(7, request.getCharacteristicsСak().getEnginePower());
+
+            ps.setInt(8, request.getStatus().value());
+            ps.setString(9, request.getNote());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println("SQL exception: " + e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Метод для всех заявок получения заявок
+     */
+    public List<Request> findAllRequest() {
+
+
+        List<Request> requests = new ArrayList<Request>();
+
+        Statement st = null;
+        try {
+            st = connection.createStatement();
+            ResultSet resultSet = st.executeQuery(SQL_SELECT_All_REQUEST);
+
+            while (resultSet.next()) {
+                Request request = new Request();
+                request.setNamberRequest(resultSet.getInt("id"));
+                request.setStatus(Status.fromValue(resultSet.getInt("status")));
+                request.setNote(resultSet.getString("note"));
+
+
+                // Временная машина взятая с заявки
+                Car characteristicsCar = new Car();
+                characteristicsCar.setType(TYPE.fromValue(resultSet.getInt("car_type")));
+                characteristicsCar.setCarryingCar(resultSet.getDouble("carrying_car"));
+                characteristicsCar.setAmountCar(resultSet.getDouble("amount_car"));
+                characteristicsCar.setEnginePower(resultSet.getDouble("enginePower"));
+                request.setCharacteristicsСar(characteristicsCar);
+
+                //TODO реализовать метод получения юзера по его id
+
+                //Преобразлование и запись времени в запрос
+                request.setDataRequest(Request.fromValueDataRequest(resultSet.getString("dataRequest")));
+                request.setDataDeparture(Request.fromValueDataDeparture(resultSet.getString("dataDeparture")));
+
+
+
+
+                requests.add(request);
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error createStatement: " + e);
+        }
+
+        return requests;
+    }
+
+    public Request findRequestByd(Integer id) {
+
+        Request request =null;
+        PreparedStatement ps = null;
+        try {
+
+
+            ps = connection.prepareStatement(SQL_SELECT_REQUEST_BY_ID );
+            ps.setInt(1, id);
+            //TODO написать оттделный метод для получения Request
+            ResultSet resultSet = ps.executeQuery();
+
+            resultSet.next();
+
+            request = new Request();
+            request.setNamberRequest(resultSet.getInt("id"));
+            request.setStatus(Status.fromValue(resultSet.getInt("status")));
+            request.setNote(resultSet.getString("note"));
+
+
+            // Временная машина взятая с заявки
+            Car characteristicsCar = new Car();
+            characteristicsCar.setType(TYPE.fromValue(resultSet.getInt("car_type")));
+            characteristicsCar.setCarryingCar(resultSet.getDouble("carrying_car"));
+            characteristicsCar.setAmountCar(resultSet.getDouble("amount_car"));
+            characteristicsCar.setEnginePower(resultSet.getDouble("enginePower"));
+
+            request.setCharacteristicsСar(characteristicsCar);
+
+            //TODO реализовать метод получения юзера по его id
+
+
+            //TODO реализовать правильное преобразование
+            System.out.println(resultSet.getString("dataRequest"));
+            System.out.println(resultSet.getString("dataDeparture"));
+        } catch (SQLException e) {
+            System.err.println("Error createStatement: " + e);
+        }
+        return request;
+
+    }
 
 }
