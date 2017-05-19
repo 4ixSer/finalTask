@@ -11,7 +11,7 @@ import com.db.WrapperConnector;
 import com.entity.car.Car;
 import com.entity.car.TYPE;
 
-public class CarDAO extends AbstractDAO<Car> {
+public class CarDAO {
     private static final String SQL_SELECT_ALL_CAR = "SELECT * FROM car";
     private static final String SQL_INSERT_CAR = "INSERT INTO car (namber, type, carryingCar, amountCar, enginePower, defective, comments) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_CAR = "DELETE FROM car WHERE id=?";
@@ -29,7 +29,7 @@ public class CarDAO extends AbstractDAO<Car> {
         connector.closeConnection();
     }
 
-    @Override
+
     public List<Car> findAll() {
 
         List<Car> cars = new ArrayList<Car>();
@@ -56,7 +56,7 @@ public class CarDAO extends AbstractDAO<Car> {
         return cars;
     }
 
-    @Override
+
     public Car findEntityById(int id) {
 
         Car car = null;
@@ -84,7 +84,7 @@ public class CarDAO extends AbstractDAO<Car> {
         return car;
     }
 
-    @Override
+
     public boolean delete(int id) {
      // Данный метод мне пока не нужен.
         throw new IllegalArgumentException();
@@ -93,7 +93,7 @@ public class CarDAO extends AbstractDAO<Car> {
     /**
      * Метод для удаления машины с БД.
      */
-    @Override
+
     public boolean delete(Car entity) {
         PreparedStatement ps = null;
         try {
@@ -120,7 +120,7 @@ public class CarDAO extends AbstractDAO<Car> {
     /**
      * Метод создает машину.
      */
-    @Override
+
     public boolean create(Car entity) {
 
         PreparedStatement ps = null;
@@ -167,7 +167,7 @@ public class CarDAO extends AbstractDAO<Car> {
         return car;
     }
 
-    @Override
+
     public Car update(Car entity) {
         PreparedStatement ps = null;
 

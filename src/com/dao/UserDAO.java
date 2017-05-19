@@ -13,7 +13,7 @@ import com.entity.users.Dispatcher;
 import com.entity.users.Driver;
 import com.entity.users.User;
 
-public class UserDAO extends AbstractDAO<User> {
+public class UserDAO {
     private static final Integer ADMIN = 1;
     private static final Integer DISPATCHER = 2;
     private static final Integer DRIVER = 3;
@@ -38,7 +38,7 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Метод для получения списка всех пользователй.
      */
-    @Override
+
     public List<User> findAll() {
 
         List<User> users = new ArrayList<User>();
@@ -100,7 +100,7 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Метод для получения юзера по его ID
      */
-    @Override
+
     public User findEntityById(int id) {
 
         User user = null;
@@ -128,7 +128,7 @@ public class UserDAO extends AbstractDAO<User> {
         return user;
     }
 
-    @Override
+
     public boolean delete(int id) {
         // Данный метод мне пока не нужен.
         throw new IllegalArgumentException();
@@ -137,7 +137,7 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Метод удаляет юзера с базы данных.
      */
-    @Override
+
     public boolean delete(User entity) {
 
         PreparedStatement ps = null;
@@ -165,7 +165,7 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Метод создает сушьность User в базе данных.
      */
-    @Override
+
     public boolean create(User entity) {
 
         PreparedStatement ps = null;
@@ -196,7 +196,7 @@ public class UserDAO extends AbstractDAO<User> {
         return true;
     }
     //"UPDATE user SET login=?, password=?, name=?, email=?, role=? WHERE id=?"
-    @Override
+
     public User update(User entity) {
         PreparedStatement ps = null;
 

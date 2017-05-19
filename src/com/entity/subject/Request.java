@@ -3,6 +3,7 @@ package com.entity.subject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.entity.Entity;
 import com.entity.car.Car;
 import com.entity.users.User;
 
@@ -12,7 +13,7 @@ import com.entity.users.User;
  * @author qny4ix
  *
  */
-public class Request {
+public class Request extends Entity {
     /**
      * номер заявки. уникальный он же и ID для базы данных.
      */
@@ -83,7 +84,7 @@ public class Request {
     public LocalDateTime getDataRequest() {
         return dataRequest;
     }
-    // TODO иуи чет еше поменять
+    // TODO тиуи чет еше поменять
     /*
      * LocalDateTime curDateTime = LocalDateTime.now(); LocalDateTime
      * curDateFuche = LocalDateTime.parse("2017-05-18T10:53:15");

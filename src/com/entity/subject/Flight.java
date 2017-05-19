@@ -3,6 +3,7 @@ package com.entity.subject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.entity.Entity;
 import com.entity.car.Car;
 import com.entity.users.User;
 
@@ -12,7 +13,7 @@ import com.entity.users.User;
  * @author qny4ix
  *
  */
-public class Flight {
+public class Flight extends Entity {
     /**
      * Номер рейса. Он же и ID.
      */
